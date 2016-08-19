@@ -5,8 +5,13 @@ require 'yaml'
 class Gem::Commands::MirrorCommand < Gem::Command
   SUPPORTS_INFO_SIGNAL = Signal.list['INFO']
 
-  def initialize
-    super 'mirror', 'Mirror a gem repository'
+  DEFAULT_OPTIONS = {
+    :mirrorrc => nil
+  }
+
+  def initialize(defaults = { })
+    super 'mirror', 'Mirror a gem repository', DEFAULT_OPTIONS.merge(defaults)
+    add_mirror_options
   end
 
   def description # :nodoc:
@@ -20,15 +25,29 @@ document that looks like this:
     to: /path/to/mirror           # destination directory
     parallelism: 10               # use 10 threads for downloads
     retries: 3                    # retry 3 times if fail to download a gem, optional, def is 1. (no retry)
-    delete: false                 # whether delete gems (if remote ones are removed),optional, default is false. 
+    delete: false                 # whether delete gems (if remote ones are removed),optional, default is false.
     skiperror: true               # whether skip error, optional, def is true. will stop at error if set this to false.
 
 Multiple sources and destinations may be specified.
     EOF
   end
 
+  def add_mirror_options
+    add_option('--mirrorrc FILE', 'Use specific mirrorc file (default: ~/.gem/.mirrorrc)') do |val, options|
+      options[:mirrorrc] = val
+    end
+  end
+
+  def default_mirrorrc_path
+    File.join(Gem.user_home, '.gem', '.mirrorrc')
+  end
+
   def execute
-    config_file = File.join Gem.user_home, '.gem', '.mirrorrc'
+    if options[:mirrorrc].nil?
+      config_file = default_mirrorrc_path
+    else
+      config_file = File.expand_path(options[:mirrorrc])
+    end
 
     raise "Config file #{config_file} not found" unless File.exist? config_file
 
@@ -51,7 +70,7 @@ Multiple sources and destinations may be specified.
       raise "Not a directory: #{save_to}" unless File.directory? save_to
 
       mirror = Gem::Mirror.new(get_from, save_to, parallelism, retries, skiperror)
-      
+
       Gem::Mirror::SPECS_FILES.each do |sf|
         say "Fetching: #{mirror.from(sf)}"
       end
