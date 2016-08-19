@@ -1,0 +1,39 @@
+PATH
+  remote: .
+  specs:
+    rubygems-mirror (1.1.0.dev1)
+      net-http-persistent (~> 2.9)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    builder (3.2.2)
+    hoe (3.15.1)
+      rake (>= 0.8, < 12.0)
+    hoe-doofus (1.0.0)
+      hoe (>= 2.3.1)
+    hoe-gemspec (1.0.0)
+      hoe (>= 2.2.0)
+    hoe-git (1.6.0)
+    json (1.8.3)
+    minitest (5.9.0)
+    net-http-persistent (2.9.4)
+    rake (11.2.2)
+    rdoc (4.2.2)
+      json (~> 1.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  builder
+  hoe (~> 3.15)
+  hoe-doofus
+  hoe-gemspec
+  hoe-git
+  minitest (~> 5.7)
+  rdoc (~> 4.0)
+  rubygems-mirror!
+
+BUNDLED WITH
+   1.12.5

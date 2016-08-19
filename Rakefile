@@ -1,5 +1,5 @@
 require 'hoe'
-Hoe.plugin :doofus, :git
+Hoe.plugin :doofus, :git, :gemspec
 
 Hoe.spec 'rubygems-mirror' do
   developer('James Tucker', 'jftucker@gmail.com')
