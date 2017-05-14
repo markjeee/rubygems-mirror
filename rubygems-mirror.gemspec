@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
 # stub: rubygems-mirror 1.1.0.cs1.20160819153550 ruby lib
 
+require File.expand_path('../lib/rubygems/mirror')
+
 Gem::Specification.new do |s|
   s.name = "rubygems-mirror"
-  s.version = "1.1.0.dev1"
+  s.version = Gem::Mirror::VERSION
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]

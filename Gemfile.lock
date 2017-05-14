@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rubygems-mirror (1.1.0.dev1)
+    rubygems-mirror (1.1.0.1)
       net-http-persistent (~> 2.9)
 
 GEM
@@ -36,4 +36,4 @@ DEPENDENCIES
   rubygems-mirror!
 
 BUNDLED WITH
-   1.12.5
+   1.14.6
